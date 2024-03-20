@@ -1,0 +1,20 @@
+{
+  "scenarios": {
+    "sampleScenario1": {
+      "exec": "sampleScenario1",
+      "executor": "per-vu-iterations",
+      "startTime": "0s",
+      "vus": 1,
+      "iterations": 1,
+      "maxDuration": "60s"
+    },
+    "sampleScenario2": {
+      "exec": "sampleScenario2",
+      "executor": "per-vu-iterations",
+      "startTime": "0s",
+      "vus": 1,
+      "iterations": 1,
+      "maxDuration": "60s"
+    }
+  }
+}
