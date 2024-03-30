@@ -1,0 +1,76 @@
+name: mockTest
+
+on: [pull_request]
+
+jobs:
+  mockTestForSampleApp:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: 'npm'
+
+      - name: Cache npm directory
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      - name: Install npm dependencies for k6
+        run: npm install
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: '**/*.sum'
+      - name: Install xk6
+        run: go install go.k6.io/xk6/cmd/xk6@latest
+
+      - name: Cache k6 binary
+        uses: actions/cache@v4
+        id: cache-k6-binary
+        with:
+          path: k6
+          key: ${{ runner.os }}-k6-${{ hashFiles('**/k6.*') }}
+          restore-keys: |
+            ${{ runner.os }}-k6-
+      - name: Build k6 with plugins
+        if: steps.cache-k6-binary.outputs.cache-hit != 'true'
+        run: |
+          xk6 build \
+          --with github.com/LeonAdato/xk6-output-statsd@latest \
+          --with github.com/grafana/xk6-dashboard@latest \
+          --with github.com/szkiba/xk6-enhanced@latest \
+          --with github.com/szkiba/xk6-dotenv@latest
+
+      - name: Set up environment variables
+        run: cp .env.ci .env
+      - name: Start mock endpoint
+        run: |
+          cd mock
+          npm install
+          npx ts-node ./src/index.ts 3005 &
+
+      - name: Cache k6 bundle files
+        uses: actions/cache@v4
+        id: cache-k6-bundle-files
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-${{ hashFiles('dist/**') }}
+          restore-keys: |
+            ${{ runner.os }}-dist-
+      - name: Bundle k6 scripts
+        if: steps.cache-k6-bundle-files.outputs.cache-hit != 'true'
+        run: npm run bundle
+      - name: Run k6 smoke test
+        run: npm run smoke:sample-product
