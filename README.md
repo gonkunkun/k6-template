@@ -56,3 +56,14 @@ npm run bundle
 # If execute smoke test scenarios to local environment
 ./k6 run ./dist/loadTest.js --config ./src/sample-product/configs/smoke.json -e ENV=local
 ```
+
+## Deploy mock server
+```
+cd mock
+npm install
+npx ts-node ./src/index 3005
+Listening on port 3005
+
+curl -XGET http://localhost:3005                                                                         add-mock-server ✱ ◼
+{"message":"This is mock endpoint"}%
+```
