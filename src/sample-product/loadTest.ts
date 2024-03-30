@@ -1,10 +1,11 @@
 import { Options } from 'k6/options'
 import { setupTesting, teardownTesting, debugOrLog } from './common/common'
+import { OPTIONS_CONFIG } from './configs/config'
 import sampleScenario1 from './scenarios/sampleScenario1'
 import sampleScenario2 from './scenarios/sampleScenario2'
 
 // Options are passed from command line
-export const options: Options = {}
+export const options = OPTIONS_CONFIG()
 
 // The following document describe role of each endpoint
 export { sampleScenario1, sampleScenario2 }
