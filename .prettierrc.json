@@ -5,5 +5,5 @@
   "printWidth": 120,
   "trailingComma": "all",
   "bracketSpacing": true,
-  "arrowParents": "always"
+  "arrowParens": "always"
 }

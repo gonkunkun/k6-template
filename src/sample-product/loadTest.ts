@@ -5,6 +5,7 @@ import sampleScenario1 from './scenarios/sampleScenario1'
 import sampleScenario2 from './scenarios/sampleScenario2'
 
 // Options are passed from command line
+// eslint-disable-next-line no-unused-vars
 export const options = OPTIONS_CONFIG()
 
 // The following document describe role of each endpoint
