@@ -16,7 +16,7 @@ go install go.k6.io/xk6/cmd/xk6@latest
 xk6 build \
 --with github.com/LeonAdato/xk6-output-statsd@latest \
 --with github.com/grafana/xk6-dashboard@latest \
---with github.com/szkiba/xk6-enhanced@latest \
+--with github.com/szkiba/xk6-ts@latest \
 --with github.com/szkiba/xk6-dotenv@latest
 ```
 
