@@ -51,4 +51,3 @@ export default async function sampleScenario1(): Promise<void> {
     `sampleScenario1() end ID: ${user.ID}, vu iterations: ${loopCounterPerVU}, total iterations: ${exec.scenario.iterationInTest}`,
   )
 }
-// hoge
