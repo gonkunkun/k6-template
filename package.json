@@ -32,8 +32,8 @@
     "lint:eslint": "npx eslint --ext .ts src",
     "lint:prettier": "prettier --check src",
     "format": "prettier --write 'src/**/*.ts' && npx eslint --fix --ext .ts src",
-    "smoke:sample-product": "XK6_TS=false ./k6 run ./dist/loadTest.js -e CONFIG_PATH=../src/sample-product/configs/smoke.json",
-    "smoke-debug:sample-product": "XK6_TS=false ./k6 run ./dist/loadTest.js -e CONFIG_PATH=../src/sample-product/configs/smoke.json --http-debug=full"
+    "smoke:sample-product": "K6_STATSD_ENABLE_TAGS=true XK6_TS=false ./k6 run ./dist/loadTest.js --out output-statsd -e CONFIG_PATH=../src/sample-product/configs/smoke.json",
+    "smoke-debug:sample-product": "K6_STATSD_ENABLE_TAGS=true XK6_TS=false ./k6 run ./dist/loadTest.js --out output-statsd -e CONFIG_PATH=../src/sample-product/configs/smoke.json --http-debug=full"
   },
   "dependencies": {
     "find-up": "^7.0.0",
