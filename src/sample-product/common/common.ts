@@ -89,7 +89,7 @@ export function debugOrLog(textToLog: string): void {
   }
 }
 
-function formatDate(time: Date): string {
+export function formatDate(time: Date): string {
   const jstOffset: number = 9 * 60
   const jstTime: number = time.getTime() + jstOffset * 60 * 1000
 

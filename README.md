@@ -67,3 +67,14 @@ Listening on port 3005
 curl -XGET http://localhost:3005                                                                         add-mock-server ✱ ◼
 {"message":"This is mock endpoint"}%
 ```
+
+## Use datadog agent and Redis for docker compose
+
+```
+export DD_API_KEY=xxx
+export DD_SITE=ap1.datadoghq.com
+```
+
+```
+docker compose up
+```
