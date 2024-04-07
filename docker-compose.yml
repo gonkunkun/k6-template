@@ -16,6 +16,6 @@ services:
       - '8125:8125/udp'
 
   redis:
-    image: 'redis:latest'
+    image: redis:latest
     ports:
       - '6379:6379'
